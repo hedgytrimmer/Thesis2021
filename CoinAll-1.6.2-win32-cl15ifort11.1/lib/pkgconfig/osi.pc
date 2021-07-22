@@ -1,0 +1,12 @@
+prefix=/home/svigerske/nbBuildDir/CoinAll/releases-1.6.2-default
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include/coin
+
+Name: Osi
+Description: COIN-OR Open Solver Interface
+URL: https://projects.coin-or.org/Osi
+Version: 0.105.3
+Libs: -L${libdir} -lOsi 
+Cflags: -I${includedir}
+Requires: coinutils 

@@ -1,0 +1,19 @@
+reset;
+
+model C:\Users\jwsjt\Desktop\acrp-lib-master\Code\NC_ACRP.mod;
+
+problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin321,bin322,bin331,bin332,bin341,bin342;
+option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
+
+data C:\Users\jwsjt\Desktop\acrp-lib-master\Data\GP_Instances\GP_3.dat;		
+	
+let A := 1..n;
+let wd := 0.5;
+
+# pre-processing of variables bounds and coefficients
+include C:\Users\jwsjt\Desktop\acrp-lib-master\Code\Preprocessing.run;
+
+problem NC_ACRP;
+solve NC_ACRP;
+
+display q,theta,Obj;

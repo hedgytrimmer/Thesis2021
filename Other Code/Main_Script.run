@@ -1,0 +1,97 @@
+reset;
+
+model Models_CDR.mod;
+
+problem Disjunctive: Plin,dvrx,dvry,z,bin11,bin12,cq1,cq2,Q,
+					bin311,bin312,bin321,bin322,bin331,bin332,bin341,bin342,					
+					cdvrx,cdvry,fp,f,q,flight3,flight4,flight6,flight7,p;
+option solver cplexamp;
+option cplex_options "mipdisplay=0 mipgap=1e-4 timelimit=600";
+option reset_initial_guesses 1;
+
+problem Shadow: Plin,q,vrx,vry,delta,rho,sigma,phi,tao,cq1,cq2,Q,
+				cvrx,cvry,sigma1,sigma2,phi1,phi2,delta1,delta2,rho1,rho2,dvg,r1,
+				rcvrx,rcvry,rsigma1,rsigma2,rphi1,rphi2,rdelta1,rdelta2,rrho1,rrho2,rdvg,r2,
+				level1,level2,level3,level4,f,psi,p;
+
+option solver cplexamp;
+option cplex_options "mipdisplay=0 mipgap=1e-4 timelimit=600";
+option reset_initial_guesses 1;
+
+
+# CP 
+for {k in 5..15} {
+	reset data;
+	data("RCP_5\CP_" & k & ".dat");
+
+	let n := k;
+	let A := 1..n;
+	let F := 1..nf;
+	let{i in A} l0[i] := 3;
+	
+	for{i in A}{
+		let L[i] := F;
+	}
+	
+	let d := 0.05;
+	include CP_Script.run;
+}
+
+
+# RCP 
+###### 10 flight levels
+for{nb in 1..10}{
+	for {k in 1..30} {
+		reset data;
+		data("RCP_10\RCP_"& nb*10 & "_" & k & ".dat");
+
+		let n := nb*10;
+		let A := 1..n;
+		let F := 1..nf;
+		for{i in A}{
+			let L[i] := F;
+		}
+		let d := 0.05;
+		include RCP_10_Script.run;
+	}
+}
+
+
+### 7 flight levels 
+for{nb in 1..10}{
+	for {k in 1..30} {
+		reset data;
+		data("RCP_7\RCP_"& nb*10 & "_" & k & ".dat");
+		
+		let n := nb*10;
+		let A := 1..n;
+		let F := 1..nf;
+		
+		for{i in A}{
+			let L[i] := F;
+		}
+		
+		let d := 0.05;
+		include RCP_7_Script.run;
+	}
+}
+
+
+### 5 flight levels
+for{nb in 1..10}
+	for {k in 1..30} {
+		reset data;
+		data("RCP_5\RCP_"& nb*10 & "_" & k & ".dat");
+		
+		let n := nb*10;;
+		let A := 1..n;
+		let F := 1..nf;
+
+		for{i in A}{
+			let L[i] := F;
+		}
+		
+		let d := 0.05;
+		include RCP_5_Script.run;
+	}
+#}

@@ -1,0 +1,199 @@
+for{(i,j) in CP}{
+
+	if cos(theta0[i])>=0 and cos(theta0[j])>=0 and sin(theta0[i])>=0 and sin(theta0[j])>=0 then{
+		let uvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])>=0 and cos(theta0[j])>=0 and sin(theta0[i])>=0 and sin(theta0[j])< 0 then{
+		let uvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])>=0 and cos(theta0[j])>=0 and sin(theta0[i])< 0 and sin(theta0[j])>=0 then{
+		let uvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])>=0 and cos(theta0[j])>=0 and sin(theta0[i])< 0 and sin(theta0[j])< 0 then{
+		let uvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);		
+	}	
+	if cos(theta0[i])>=0 and cos(theta0[j])< 0 and sin(theta0[i])>=0 and sin(theta0[j])>=0 then{
+		let uvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])>=0 and cos(theta0[j])< 0 and sin(theta0[i])>=0 and sin(theta0[j])< 0 then{
+		let uvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])>=0 and cos(theta0[j])< 0 and sin(theta0[i])< 0 and sin(theta0[j])>=0 then{
+		let uvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])>=0 and cos(theta0[j])< 0 and sin(theta0[i])< 0 and sin(theta0[j])< 0 then{
+		let uvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);		
+	}	
+	if cos(theta0[i])< 0 and cos(theta0[j])>=0 and sin(theta0[i])>=0 and sin(theta0[j])>=0 then{
+		let uvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])< 0 and cos(theta0[j])>=0 and sin(theta0[i])>=0 and sin(theta0[j])< 0 then{
+		let uvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])< 0 and cos(theta0[j])>=0 and sin(theta0[i])< 0 and sin(theta0[j])>=0 then{
+		let uvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])< 0 and cos(theta0[j])>=0 and sin(theta0[i])< 0 and sin(theta0[j])< 0 then{
+		let uvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+	}	
+	if cos(theta0[i])< 0 and cos(theta0[j])< 0 and sin(theta0[i])>=0 and sin(theta0[j])>=0 then{
+		let uvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);	
+	}
+	if cos(theta0[i])< 0 and cos(theta0[j])< 0 and sin(theta0[i])>=0 and sin(theta0[j])< 0 then{
+		let uvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);	
+	}
+	if cos(theta0[i])< 0 and cos(theta0[j])< 0 and sin(theta0[i])< 0 and sin(theta0[j])>=0 then{
+		let uvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+	}
+	if cos(theta0[i])< 0 and cos(theta0[j])< 0 and sin(theta0[i])< 0 and sin(theta0[j])< 0 then{
+		let uvrx[i,j] := qmin*lcc*v0[i]*cos(theta0[i]) - qmax*uss*v0[i]*sin(theta0[i]) - qmax*ucc*v0[j]*cos(theta0[j]) + qmin*lss*v0[j]*sin(theta0[j]);
+		let lvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
+		let uvry[i,j] := qmin*lss*v0[i]*cos(theta0[i]) + qmin*lcc*v0[i]*sin(theta0[i]) - qmax*uss*v0[j]*cos(theta0[j]) - qmax*ucc*v0[j]*sin(theta0[j]);
+		let lvry[i,j] := qmax*uss*v0[i]*cos(theta0[i]) + qmax*ucc*v0[i]*sin(theta0[i]) - qmin*lss*v0[j]*cos(theta0[j]) - qmin*lcc*v0[j]*sin(theta0[j]);		
+	}
+
+	let a[i,j] := yr0[i,j]**2 - d**2;
+	let b[i,j] := xr0[i,j]**2 - d**2;
+	let c[i,j] := 2*xr0[i,j]*yr0[i,j];
+	
+	if xr0[i,j]>=0 and yr0[i,j]>=0 then {
+		let Mbin11[i,j] := xr0[i,j]*uvry[i,j] - yr0[i,j]*lvrx[i,j];
+		let Mbin12[i,j] := -xr0[i,j]*lvry[i,j] + yr0[i,j]*uvrx[i,j];
+		if b[i,j]>=0 and -(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin331[i,j] := 2*b[i,j]*uvry[i,j] - uvrx[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if b[i,j]>=0 and -(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin331[i,j] := 2*b[i,j]*uvry[i,j] - lvrx[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));	
+		if b[i,j]< 0 and -(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin331[i,j] := 2*b[i,j]*lvry[i,j] - uvrx[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if b[i,j]< 0 and -(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin331[i,j] := 2*b[i,j]*lvry[i,j] - lvrx[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if a[i,j]>=0 and -(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin332[i,j] := 2*a[i,j]*uvrx[i,j] - uvry[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if a[i,j]>=0 and -(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin332[i,j] := 2*a[i,j]*uvrx[i,j] - lvry[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));		
+		if a[i,j]< 0 and -(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin332[i,j] := 2*a[i,j]*lvrx[i,j] - uvry[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if a[i,j]< 0 and -(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin332[i,j] := 2*a[i,j]*lvrx[i,j] - lvry[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));		
+		let gammal[i,j] := 2*b[i,j];
+		let gammau[i,j] := 2*a[i,j];
+		let phil[i,j] := c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]);
+		let phiu[i,j] := c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]);
+	}
+	if xr0[i,j]>=0 and yr0[i,j]< 0 then {
+		let Mbin11[i,j] := xr0[i,j]*uvry[i,j] - yr0[i,j]*uvrx[i,j];
+		let Mbin12[i,j] := -xr0[i,j]*lvry[i,j] + yr0[i,j]*lvrx[i,j];		
+		if a[i,j]>=0 and -(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin311[i,j] := 2*a[i,j]*uvrx[i,j] - uvry[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if a[i,j]>=0 and -(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin311[i,j] := 2*a[i,j]*uvrx[i,j] - lvry[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));				
+		if a[i,j]< 0 and -(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin311[i,j] := 2*a[i,j]*lvrx[i,j] - uvry[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if a[i,j]< 0 and -(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin311[i,j] := 2*a[i,j]*lvrx[i,j] - lvry[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));		
+		if -b[i,j]>=0 and (c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin312[i,j] := -2*b[i,j]*uvry[i,j] + uvrx[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if -b[i,j]>=0 and (c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin312[i,j] := -2*b[i,j]*uvry[i,j] + lvrx[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));	
+		if -b[i,j]< 0 and (c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin312[i,j] := -2*b[i,j]*lvry[i,j] + uvrx[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if -b[i,j]< 0 and (c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin312[i,j] := -2*b[i,j]*lvry[i,j] + lvrx[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));		
+		let gammal[i,j] := 2*a[i,j];
+		let gammau[i,j] := -2*b[i,j];
+		let phil[i,j] := c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]);
+		let phiu[i,j] := c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]);
+	}
+	if xr0[i,j]< 0 and yr0[i,j]>=0 then {
+		let Mbin11[i,j] := xr0[i,j]*lvry[i,j] - yr0[i,j]*lvrx[i,j];
+		let Mbin12[i,j] := -xr0[i,j]*uvry[i,j] + yr0[i,j]*uvrx[i,j];
+		if -a[i,j]>=0 and (c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin321[i,j] := -2*a[i,j]*uvrx[i,j] + uvry[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if -a[i,j]>=0 and (c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin321[i,j] := -2*a[i,j]*uvrx[i,j] + lvry[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));		
+		if -a[i,j]< 0 and (c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin321[i,j] := -2*a[i,j]*lvrx[i,j] + uvry[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if -a[i,j]< 0 and (c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin321[i,j] := -2*a[i,j]*lvrx[i,j] + lvry[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if b[i,j]>=0 and -(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin322[i,j] := 2*b[i,j]*uvry[i,j] - uvrx[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if b[i,j]>=0 and -(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin322[i,j] := 2*b[i,j]*uvry[i,j] - lvrx[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));			
+		if b[i,j]< 0 and -(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin322[i,j] := 2*b[i,j]*lvry[i,j] - uvrx[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if b[i,j]< 0 and -(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin322[i,j] := 2*b[i,j]*lvry[i,j] - lvrx[i,j]*(c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));				
+		let gammal[i,j] := -2*a[i,j];
+		let gammau[i,j] := 2*b[i,j];
+		let phil[i,j] := c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]);
+		let phiu[i,j] := c[i,j] - sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]);
+	}
+	if xr0[i,j]< 0 and yr0[i,j]< 0 then {
+		let Mbin11[i,j] := xr0[i,j]*lvry[i,j] - yr0[i,j]*uvrx[i,j];
+		let Mbin12[i,j] := -xr0[i,j]*uvry[i,j] + yr0[i,j]*lvrx[i,j];
+		if -b[i,j]>=0 and (c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin341[i,j] := -2*b[i,j]*uvry[i,j] + uvrx[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if -b[i,j]>=0 and (c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin341[i,j] := -2*b[i,j]*uvry[i,j] + lvrx[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));		
+		if -b[i,j]< 0 and (c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin341[i,j] := -2*b[i,j]*lvry[i,j] + uvrx[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if -b[i,j]< 0 and (c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin341[i,j] := -2*b[i,j]*lvry[i,j] + lvrx[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));			
+		if -a[i,j]>=0 and (c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin342[i,j] := -2*a[i,j]*uvrx[i,j] + uvry[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if -a[i,j]>=0 and (c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin342[i,j] := -2*a[i,j]*uvrx[i,j] + lvry[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if -a[i,j]< 0 and (c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))>=0 then let Mbin342[i,j] := -2*a[i,j]*lvrx[i,j] + uvry[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));
+		if -a[i,j]< 0 and (c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]))< 0 then let Mbin342[i,j] := -2*a[i,j]*lvrx[i,j] + lvry[i,j]*(c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]));	
+		let gammal[i,j] := -2*b[i,j];
+		let gammau[i,j] := -2*a[i,j];
+		let phil[i,j] := c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]);
+		let phiu[i,j] := c[i,j] + sqrt(c[i,j]**2 - 4*a[i,j]*b[i,j]);
+	}
+	
+
+}
+
+for {(i,j) in CP}{
+if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <= (1 - z[i,j])*Mbin11[i,j] and
+xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >=  -(z[i,j])*Mbin12[i,j] and
+xr0[i,j] >=0 and yr0[i,j] < 0 and gammal[i,j]*vrx[i,j] - phil[i,j]*vry[i,j] >= 0 and
+xr0[i,j] >=0 and yr0[i,j] < 0 and gammau[i,j]*vry[i,j] + phiu[i,j]*vrx[i,j] <= 0 or
+xr0[i,j] < 0 and yr0[i,j] >=0 and gammal[i,j]*vrx[i,j] + phil[i,j]*vry[i,j] >= 0 and
+xr0[i,j] < 0 and yr0[i,j] >=0 and gammau[i,j]*vry[i,j] - phiu[i,j]*vrx[i,j] <= 0 or
+xr0[i,j] >=0 and yr0[i,j] >=0 and gammal[i,j]*vry[i,j] - phil[i,j]*vrx[i,j] >= 0 and
+xr0[i,j] >=0 and yr0[i,j] >=0 and gammau[i,j]*vrx[i,j] - phiu[i,j]*vry[i,j] <= 0 or
+xr0[i,j] < 0 and yr0[i,j] < 0 and gammal[i,j]*vry[i,j] + phil[i,j]*vrx[i,j] >= 0 and
+xr0[i,j] < 0 and yr0[i,j] < 0 and gammau[i,j]*vrx[i,j] + phiu[i,j]*vry[i,j] <= 0 then 
+if card(C1) < nc then {
+let C1 := C1 union {i,j};
+continue};
+if card(C2) < nc then { 
+let C2 := C2 union {i,j} diff C1;
+continue};
+if card(C3) < nc then {
+let C3:= C3 union {i,j} diff C1 diff C2;
+continue};
+if card(C4) < nc then {
+let C4 := C4 union {i,j} diff C1 diff C2 diff C3 diff C4;
+continue};
+if card(C5) < nc then {
+let C5 := C5 union {i,j} diff C1 diff C2 diff C3 diff C4 diff C5;
+continue};
+}
+display C1, C2, C3, C4, C5
