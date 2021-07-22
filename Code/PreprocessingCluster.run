@@ -172,11 +172,11 @@ for{(i,j) in CP}{
 for {(i,j) in CP}{
 if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <= (1 - z[i,j])*Mbin11[i,j] and
 xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >=  -(z[i,j])*Mbin12[i,j] and
-xr0[i,j] >=0 and yr0[i,j] < 0 and gammal[i,j]*vrx[i,j] - phil[i,j]*vry[i,j] >= 0 and
+xr0[i,j] >=0 and yr0[i,j] < 0 and gammal[i,j]*vrx[i,j] - phil[i,j]*vry[i,j] >= 0 or
 xr0[i,j] >=0 and yr0[i,j] < 0 and gammau[i,j]*vry[i,j] + phiu[i,j]*vrx[i,j] <= 0 or
-xr0[i,j] < 0 and yr0[i,j] >=0 and gammal[i,j]*vrx[i,j] + phil[i,j]*vry[i,j] >= 0 and
+xr0[i,j] < 0 and yr0[i,j] >=0 and gammal[i,j]*vrx[i,j] + phil[i,j]*vry[i,j] >= 0 or
 xr0[i,j] < 0 and yr0[i,j] >=0 and gammau[i,j]*vry[i,j] - phiu[i,j]*vrx[i,j] <= 0 or
-xr0[i,j] >=0 and yr0[i,j] >=0 and gammal[i,j]*vry[i,j] - phil[i,j]*vrx[i,j] >= 0 and
+xr0[i,j] >=0 and yr0[i,j] >=0 and gammal[i,j]*vry[i,j] - phil[i,j]*vrx[i,j] >= 0 or
 xr0[i,j] >=0 and yr0[i,j] >=0 and gammau[i,j]*vrx[i,j] - phiu[i,j]*vry[i,j] <= 0 or
 xr0[i,j] < 0 and yr0[i,j] < 0 and gammal[i,j]*vry[i,j] + phil[i,j]*vrx[i,j] >= 0 and
 xr0[i,j] < 0 and yr0[i,j] < 0 and gammau[i,j]*vrx[i,j] + phiu[i,j]*vry[i,j] <= 0 then 
