@@ -168,10 +168,18 @@ for{(i,j) in CP}{
 
 
 }
+
 #display Mbin11, Mbin12, Mbin311, Mbin312, Mbin321, Mbin322, Mbin331, Mbin332, Mbin341, Mbin342;
+
+let C1 := {};
+let C2 := {};
+
 for {(i,j) in CP}{
-display {i,j};
-if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >= (1 - z[i,j])*Mbin11[i,j] then print "con1";
-if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <=  -(z[i,j])*Mbin12[i,j] then print "con2";
+if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >= (1 - z[i,j])*Mbin11[i,j] or
+xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <=  -(z[i,j])*Mbin12[i,j] then {
+if card(C1) < nc then {let C1 := C1 union {i,j};
+continue;}
+else let C2 := C2 union {i,j} diff C1;}
 }
+display C1,C2;
 #display xr0[1,2], yr0[1,2], gammal[1,2],vrx[1,2], phil[1,2],vry[1,2], z[1,2], Mbin311[1,2], Mbin312[1,2], gammau[1,2], phiu[1,2];

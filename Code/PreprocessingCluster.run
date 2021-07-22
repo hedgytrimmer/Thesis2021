@@ -1,3 +1,4 @@
+
 for{(i,j) in CP}{
 
 	if cos(theta0[i])>=0 and cos(theta0[j])>=0 and sin(theta0[i])>=0 and sin(theta0[j])>=0 then{
@@ -169,31 +170,28 @@ for{(i,j) in CP}{
 
 }
 
+#display uvrx, uvry;
+
 for {(i,j) in CP}{
-if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <= (1 - z[i,j])*Mbin11[i,j] and
-xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >=  -(z[i,j])*Mbin12[i,j] and
-xr0[i,j] >=0 and yr0[i,j] < 0 and gammal[i,j]*vrx[i,j] - phil[i,j]*vry[i,j] >= 0 or
-xr0[i,j] >=0 and yr0[i,j] < 0 and gammau[i,j]*vry[i,j] + phiu[i,j]*vrx[i,j] <= 0 or
-xr0[i,j] < 0 and yr0[i,j] >=0 and gammal[i,j]*vrx[i,j] + phil[i,j]*vry[i,j] >= 0 or
-xr0[i,j] < 0 and yr0[i,j] >=0 and gammau[i,j]*vry[i,j] - phiu[i,j]*vrx[i,j] <= 0 or
-xr0[i,j] >=0 and yr0[i,j] >=0 and gammal[i,j]*vry[i,j] - phil[i,j]*vrx[i,j] >= 0 or
-xr0[i,j] >=0 and yr0[i,j] >=0 and gammau[i,j]*vrx[i,j] - phiu[i,j]*vry[i,j] <= 0 or
-xr0[i,j] < 0 and yr0[i,j] < 0 and gammal[i,j]*vry[i,j] + phil[i,j]*vrx[i,j] >= 0 and
-xr0[i,j] < 0 and yr0[i,j] < 0 and gammau[i,j]*vrx[i,j] + phiu[i,j]*vry[i,j] <= 0 then 
-if card(C1) < nc then {
+if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >= (1 - z[i,j])*Mbin11[i,j] or
+xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <=  -(z[i,j])*Mbin12[i,j] then 
+{if card(C1) < nc then {
 let C1 := C1 union {i,j};
-continue};
-if card(C2) < nc then { 
-let C2 := C2 union {i,j} diff C1;
-continue};
-if card(C3) < nc then {
-let C3:= C3 union {i,j} diff C1 diff C2;
-continue};
-if card(C4) < nc then {
-let C4 := C4 union {i,j} diff C1 diff C2 diff C3 diff C4;
-continue};
-if card(C5) < nc then {
-let C5 := C5 union {i,j} diff C1 diff C2 diff C3 diff C4 diff C5;
+print "added";
 continue};
 }
-display C1, C2, C3, C4, C5
+}
+display C1
+
+
+#if card(C3) < nc then {
+#let C3:= C3 union {i,j} diff C1 diff C2;
+#continue};
+#if card(C4) < nc then {
+#let C4 := C4 union {i,j} diff C1 diff C2 diff C3 diff C4;
+#continue};
+#if card(C5) < nc then {
+#let C5 := C5 union {i,j} diff C1 diff C2 diff C3 diff C4 diff C5;
+#continue};
+
+#display Mbin11, Mbin12, Mbin311, Mbin312, Mbin321, Mbin322, Mbin331, Mbin332, Mbin341, Mbin342
