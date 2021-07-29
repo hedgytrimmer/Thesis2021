@@ -173,13 +173,17 @@ for{(i,j) in CP}{
 
 let C1 := {};
 let C2 := {};
+let C3 := {};
 
 for {(i,j) in CP}{
 if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >= (1 - z[i,j])*Mbin11[i,j] or
 xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <=  -(z[i,j])*Mbin12[i,j] then {
 if card(C1) < nc then {let C1 := C1 union {i,j};
 continue;}
-else let C2 := C2 union {i,j} diff C1;}
+if card(C1) >= nc and card(C2) <= nc then {let C2 := C2 union {i,j} diff C1;
+continue;}
+if card(C1) >= nc and card(C2) >= nc then {let C3 := C3 union {i,j} diff C1 diff C2;
+continue;}}
 }
-display C1,C2;
+display C1,C2,C3;
 #display xr0[1,2], yr0[1,2], gammal[1,2],vrx[1,2], phil[1,2],vry[1,2], z[1,2], Mbin311[1,2], Mbin312[1,2], gammau[1,2], phiu[1,2];
