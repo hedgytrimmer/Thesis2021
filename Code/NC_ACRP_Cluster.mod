@@ -2,8 +2,12 @@
 
 set A;
 set C default {};
+
+#sets additional to original model
 set P := {i in A, j in A : i < j};
 set CP := {i in C, j in C : i < j};
+set CC;
+set CD {CC};
 set C1 default {};
 set C2 default {};
 set C3 default {};
@@ -25,7 +29,15 @@ param x0{i in A} default -radius*cos((i-1)*2*PI/n + PI);
 param y0{i in A} default -radius*sin((i-1)*2*PI/n + PI);
 param xr0{i in A, j in A : i<j} := x0[i]-x0[j];
 param yr0{i in A, j in A : i<j} := y0[i]-y0[j];
+
+#params additional to original model
+
 param nc default 5;
+param ic {i in A} default 0;
+param iw {i in A} default 0;
+param numc default 5;
+param vrx0{i in A, j in A : i<j} := v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
+param vry0{i in A, j in A : i<j} := v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
 
 # control bounds
 param qmin := 0.94;

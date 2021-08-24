@@ -171,19 +171,28 @@ for{(i,j) in CP}{
 
 #display Mbin11, Mbin12, Mbin311, Mbin312, Mbin321, Mbin322, Mbin331, Mbin332, Mbin341, Mbin342;
 
-let C1 := {};
-let C2 := {};
-let C3 := {};
-
-for {(i,j) in CP}{
-if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >= (1 - z[i,j])*Mbin11[i,j] or
-xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <=  -(z[i,j])*Mbin12[i,j] then {
-if card(C1) < nc then {let C1 := C1 union {i,j};
-continue;}
-if card(C1) >= nc and card(C2) <= nc then {let C2 := C2 union {i,j} diff C1;
-continue;}
-if card(C1) >= nc and card(C2) >= nc then {let C3 := C3 union {i,j} diff C1 diff C2;
-continue;}}
-}
-display C1,C2,C3;
+#let C1 := {};
+#let C2 := {};
+#let C3 := {};
+#let {i in A} ic[i] := 0;
+#for {(i,j) in CP}{
+#
+#
+#if xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j] <= 0 and
+#(vrx[i,j]**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j] - c[i,j] <= 0 then 
+#
+#
+#{
+##if ic[i] and ic[j] = 0 => add to any cluster
+##if ic[i] = 1 and ic[j] = 0 => add j to cluster i
+##if ic[i] = 0 and ic[j] = 1 => add i to cluster j
+##if ic[i] = 1 and ic[j] = 1 => flag
+#if card(C1) < nc then {let C1 := C1 union {i,j};
+#continue;}
+#if card(C1) >= nc and card(C2) < nc then {let C2 := C2 union {i,j} diff C1;
+#continue;}
+#if card(C1) >= nc and card(C2) >= nc then {let C3 := C3 union {i,j} diff C1 diff C2;
+#continue;}}
+#}
+#display C1,C2,C3;
 #display xr0[1,2], yr0[1,2], gammal[1,2],vrx[1,2], phil[1,2],vry[1,2], z[1,2], Mbin311[1,2], Mbin312[1,2], gammau[1,2], phiu[1,2];
