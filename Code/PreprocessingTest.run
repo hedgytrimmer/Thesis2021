@@ -169,7 +169,7 @@ for{(i,j) in CP}{
 
 }
 
-#display Mbin11, Mbin12, Mbin311, Mbin312, Mbin321, Mbin322, Mbin331, Mbin332, Mbin341, Mbin342;
+#display CC;
 
 #let C1 := {};
 #let C2 := {};

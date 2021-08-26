@@ -7,12 +7,8 @@ set C default {};
 set P := {i in A, j in A : i < j};
 set CP := {i in C, j in C : i < j};
 set CC;
-set CD {CC};
-set C1 default {};
-set C2 default {};
-set C3 default {};
-set C4 default {};
-set C5 default {};
+
+
 
 param wd;
 param n >= 0;
@@ -38,6 +34,10 @@ param iw {i in A} default 0;
 param numc default 5;
 param vrx0{i in A, j in A : i<j} := v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
 param vry0{i in A, j in A : i<j} := v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
+
+
+set CD {1..nc} within C default {};
+
 
 # control bounds
 param qmin := 0.94;

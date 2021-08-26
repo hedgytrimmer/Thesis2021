@@ -4,24 +4,39 @@ for {(i,j) in CP}{
     let c[i,j] := 2*xr0[i,j]*yr0[i,j];
 }
 
-#let {i in A} ic[i] := 0;
-#let {i in A} iw[i] := 0;
+let {i in A} ic[i] := 0;
+let {i in A} iw[i] := 0;
+
+for {i in {1..nc}}{
+    let CD[i] := {};
+}
 
 for {(i,j) in CP}{
 
 if xr0[i,j] * vrx0[i,j] + yr0[i,j] * vry0[i,j] < 0 and
 (vrx[i,j]**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j] - c[i,j] < 0 then 
-
 {
+for {x in 1..nc}{
+    if card(CD[x]) = 0 and ic[i] = 0 then {
+        let CD[x] := {i};
+        let ic[i] := 1;
+        let iw[i] := x;
+        continue;
+        }
+
+    if card(CD[x]) > 0 and ic[i] = 0 then {
+        let CD[x] := CD[x] union {i};
+        let ic[i] := 1;
+        let iw[i] := x;
+        continue;
+    }
+    }
+    #let CD[1] := CD[1] union {j};
+}
+}
+display CD, ic, iw;
+
 #if ic[i] and ic[j] = 0 => add to any cluster
 #if ic[i] = 1 and ic[j] = 0 => add j to cluster i
 #if ic[i] = 0 and ic[j] = 1 => add i to cluster j
 #if ic[i] = 1 and ic[j] = 1 => flag
-if card(C1) < nc then {let C1 := C1 union {i,j};
-continue;}
-if card(C1) >= nc and card(C2) < nc then {let C2 := C2 union {i,j} diff C1;
-continue;}
-if card(C1) >= nc and card(C2) >= nc then {let C3 := C3 union {i,j} diff C1 diff C2;
-continue;}}
-}
-display C1,C2,CC;

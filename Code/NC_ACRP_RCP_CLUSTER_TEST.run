@@ -7,12 +7,12 @@ problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin32
 #option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 option solver "C:\Users\user\Documents\THESIS\THESIS2021\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 
-data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_10_9.dat;		
+data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_10_7.dat;		
 	
 let A := 1..n;
 let C := A;
 let wd := 0.5;
-let nc := 5;
+let nc := 2;
 
 # pre-processing of variables bounds and coefficients
 #include C:\Users\jwsjt\Desktop\acrp-lib-master\Code\PreprocessingCluster.run;
@@ -20,72 +20,50 @@ include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
 include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 
 #Create Set of Clusters, iterate over set - if card(C1) >0 => solve else continue
-let C := C1;
 
-problem NC_ACRP;
-solve NC_ACRP;
-
-for {i in C}{
-let v0[i] := q[i]*v0[i];
-let cap[i] := theta[i]+cap[i];
-}
-
-display q,theta,Obj, v0;
-
-let C := C2;
-
-problem NC_ACRP;
-solve NC_ACRP;
-
-for {i in C}{
-let v0[i] := q[i]*v0[i];
-let cap[i] := theta[i]+cap[i];
-}
-
-display q,theta,Obj, v0, cap;
-
-#let C := C3;
+#for {y in {1..nc}}{
+#    if card(CD[y]) = 0 then continue;
+#    else
 #
-#problem NC_ACRP;
-#solve NC_ACRP;
+#    repeat while card(CD[y]) > 0 {
+#    let C := CD[y];
 #
-#for {i in C}{
-#let v0[i] := q[i]*v0[i];
-#let cap[i] := theta[i]+cap[i];
+#    problem NC_ACRP;
+#    solve NC_ACRP;
+#
+#    for {i in C}{
+#    let v0[i] := q[i]*v0[i];
+#    let cap[i] := theta[i]+cap[i];
+#    }
+#
+#    display q,theta,Obj, v0;
+#
+#    include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
+#    }
 #}
 
 
+for {y in {1..nc}}{
+    if card(CD[y]) = 0 then continue;
+    else {
+    let C := CD[y];
 
-let C := A;
+    problem NC_ACRP;
+    solve NC_ACRP;
 
-#Loop over C and count/identify conflicts, any conflicts are with aircraft outside the same cluster
-#(potentially) Recluster to maintain original clusters where possible, adding additional aircraft in conflict
+    for {i in C}{
+    let v0[i] := q[i]*v0[i];
+    let cap[i] := theta[i]+cap[i];
+    }
 
-include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
+    display q,theta,Obj, v0;
 
-let C := C1;
-
-problem NC_ACRP;
-solve NC_ACRP;
-
-for {i in C}{
-let v0[i] := q[i]*v0[i];
-let cap[i] := theta[i]+cap[i];
+    include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
+}
 }
 
-display q,theta,Obj, v0;
-
-let C := C2;
-
-problem NC_ACRP;
-solve NC_ACRP;
-
-for {i in C}{
-let v0[i] := q[i]*v0[i];
-let cap[i] := theta[i]+cap[i];
+for {(i,j) in CP}{
+    if xr0[i,j] * vrx0[i,j] + yr0[i,j] * vry0[i,j] < 0 and
+    (vrx[i,j]**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j] - c[i,j] < 0 then 
+    print i,j;
 }
-
-display q,theta,Obj, v0, cap;
-let C := A;
-
-include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
