@@ -15,7 +15,7 @@ for {i in {1..nc}}{
 
 for {(i,j) in CP}{
 
-if xr0[i,j] * vrx0[i,j] + yr0[i,j] * vry0[i,j] < 0 and
+if xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j] < 0 and
 (vrx[i,j]**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j] - c[i,j] < 0 then 
 {
 for {x in 1..nc}{
