@@ -32,9 +32,11 @@ param nc default 5;
 param ic {i in A} default 0;
 param iw {i in A} default 0;
 param numc default 5;
-param vrx0{i in A, j in A : i<j} default v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
-param vry0{i in A, j in A : i<j} default v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
+#param vrx0{i in A, j in A : i<j} default v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
+#param vry0{i in A, j in A : i<j} default v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
 
+param test1{i in A, j in A : i<j};
+param test2{i in A, j in A : i<j};
 
 set CD {1..nc} within C default {};
 
@@ -79,8 +81,8 @@ param Mbin342 {(i,j) in P : xr0[i,j] < 0 and yr0[i,j] < 0};
 # variables
 var q{i in C} >= qmin <= qmax;
 var theta{i in C} >= hmin <= hmax;
-var vrx{(i,j) in CP} >= lvrx[i,j] <= uvrx[i,j] := v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
-var vry{(i,j) in CP} >= lvry[i,j] <= uvry[i,j] := v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
+var vrx{(i,j) in CP} >= lvrx[i,j] <= uvrx[i,j] default v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
+var vry{(i,j) in CP} >= lvry[i,j] <= uvry[i,j] default v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
 var z{(i,j) in CP} binary;
 
 # objective function

@@ -7,7 +7,7 @@ problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin32
 #option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 option solver "C:\Users\user\Documents\THESIS\THESIS2021\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 
-data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_10_10.dat;		
+data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_10_11.dat;		
 	
 let A := 1..n;
 let C := A;
@@ -43,19 +43,36 @@ include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 #    }
 #}
 
+for {(i,j) in CP}{
+    let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
+    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j] - c[i,j];
+}
+
+#display test1, test2;
 
 for {y in {1..nc}}{
     let C := A;
     if card(CD[y]) <= 1 then continue;
     else {
+    #for {(i,j) in CP}{
+    #       #print v0[i], v0[j];
+    #       let vrx[i,j] := 0;
+    #       let vry[i,j] := 0;
+    #   }
+
     let C := CD[y];
 
-    include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
+    #include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
 
-    display vrx, vry;
+    #display vrx, vry;
+
+    display C, CP > output.txt;
+    display test1, test2;
 
     problem NC_ACRP;
+    expand > output.txt;
     solve NC_ACRP;
+
 
     #for {i in C}{
     #let v0[i] := q[i]*v0[i];
@@ -72,18 +89,34 @@ for {y in {1..nc}}{
     #    let vry[i,j] := v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
     #}
     }
-    display vrx, vry;
+    display test1, test2;
     display q,theta,Obj;
     
+    for {(i,j) in CP}{
+    if xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j] < 0 and
+    (((vrx[i,j])**2) * a[i,j]) + ((vry[i,j]**2) * b[i,j]) - (vrx[i,j]*vry[i,j]*c[i,j]) < 0 then 
+    print i,j;
+    }
+
+    include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 
 }
 
 let C := A;
-#display vrx0, vry0;
+#display vrx, vry;
 
 
-for {(i,j) in CP}{
-    if xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j] < 0 and
-    ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j] - c[i,j] < 0 then 
-    print i,j;
-}
+
+
+#for {(i,j) in CP}{
+#    if xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j] < 0 and
+#    ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j] < 0 then 
+#    print i,j;
+#}
+#
+#for {(i,j) in CP}{
+#    let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
+#    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j] - c[i,j];
+#}
+
+#display test1, test2;

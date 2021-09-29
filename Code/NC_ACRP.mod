@@ -59,9 +59,9 @@ param Mbin342 {(i,j) in P : xr0[i,j] < 0 and yr0[i,j] < 0};
 
 # variables
 var q{i in A} >= qmin <= qmax;
-var theta{i in A} >= hmin <= hmax;
-var vrx{(i,j) in P} >= lvrx[i,j] <= uvrx[i,j];
-var vry{(i,j) in P} >= lvry[i,j] <= uvry[i,j];
+var theta{i in A} >= hmin <= hmax; 
+var vrx{(i,j) in P} >= lvrx[i,j] <= uvrx[i,j] default v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
+var vry{(i,j) in P} >= lvry[i,j] <= uvry[i,j] default v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
 var z{(i,j) in P} binary;
 
 # objective function

@@ -1,4 +1,4 @@
-for{(i,j) in CP}{
+for{(i,j) in P}{
 
 	if cos(theta0[i])>=0 and cos(theta0[j])>=0 and sin(theta0[i])>=0 and sin(theta0[j])>=0 then{
 		let uvrx[i,j] := qmax*ucc*v0[i]*cos(theta0[i]) - qmin*lss*v0[i]*sin(theta0[i]) - qmin*lcc*v0[j]*cos(theta0[j]) + qmax*uss*v0[j]*sin(theta0[j]);
@@ -169,9 +169,9 @@ for{(i,j) in CP}{
 
 }
 #display Mbin11, Mbin12, Mbin311, Mbin312, Mbin321, Mbin322, Mbin331, Mbin332, Mbin341, Mbin342;
-for {(i,j) in CP}{
-display {i,j};
-if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >= (1 - z[i,j])*Mbin11[i,j] then print "con1";
-if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <=  -(z[i,j])*Mbin12[i,j] then print "con2";
-}
+#for {(i,j) in CP}{
+#display {i,j};
+#if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] >= (1 - z[i,j])*Mbin11[i,j] then print "con1";
+#if xr0[i,j]*vry[i,j] - yr0[i,j]*vrx[i,j] <=  -(z[i,j])*Mbin12[i,j] then print "con2";
+#}
 #display xr0[1,2], yr0[1,2], gammal[1,2],vrx[1,2], phil[1,2],vry[1,2], z[1,2], Mbin311[1,2], Mbin312[1,2], gammau[1,2], phiu[1,2];
