@@ -9,6 +9,8 @@ let C := A;
 for {(i,j) in CP}{
     let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
     let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+    if test1[i,j] < 0 then print i,j, test1[i,j] > test1.txt;
+    print i,j, test2[i,j] > test2.txt;
 }
 
 let {i in A} ic[i] := 0;

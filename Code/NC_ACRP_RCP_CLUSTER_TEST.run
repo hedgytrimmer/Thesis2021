@@ -7,7 +7,7 @@ problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin32
 #option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 option solver "C:\Users\user\Documents\THESIS\THESIS2021\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 
-data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_10_11.dat;		
+data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_10_25.dat;		
 	
 let A := 1..n;
 let C := A;
@@ -17,6 +17,19 @@ let nc := 5;
 # pre-processing of variables bounds and coefficients
 #include C:\Users\jwsjt\Desktop\acrp-lib-master\Code\PreprocessingCluster.run;
 include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
+
+
+
+for {(i,j) in CP}{
+    let a[i,j] := yr0[i,j]**2 - d**2;
+    let b[i,j] := xr0[i,j]**2 - d**2;
+    let c[i,j] := 2*xr0[i,j]*yr0[i,j];
+}
+
+for {(i,j) in CP}{
+    let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
+    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+}
 
 include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 
@@ -31,22 +44,17 @@ include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 #
 #    problem NC_ACRP;
 #    solve NC_ACRP;
-#
-#    for {i in C}{
-#    let v0[i] := q[i]*v0[i];
-#    let cap[i] := theta[i]+cap[i];
+#    for {(i,j) in CP}{
+#    let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
+#    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
 #    }
 #
 #    display q,theta,Obj, v0;
 #
 #    include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
-#    }
+#}
 #}
 
-for {(i,j) in CP}{
-    let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
-    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j] - c[i,j];
-}
 
 #display test1, test2;
 
@@ -64,8 +72,6 @@ for {y in {1..nc}}{
 
     #include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
 
-    #display vrx, vry;
-
     display C, CP > output.txt;
     display test1, test2;
 
@@ -73,50 +79,39 @@ for {y in {1..nc}}{
     expand > output.txt;
     solve NC_ACRP;
 
-
-    #for {i in C}{
-    #let v0[i] := q[i]*v0[i];
-    #let cap[i] := theta[i]+cap[i];
-    #if cap[i] >= PI then let theta0[i] := cap[i] - 2*PI;
-    #else let theta0[i] := cap[i];
-    #}
-
     #display vrx, vry;
-#
-    #for {(i,j) in CP}{
-    #    #print v0[i], v0[j];
-    #    let vrx[i,j] := v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
-    #    let vry[i,j] := v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
-    #}
-    }
-    display test1, test2;
+
+    #display test1, test2;
     display q,theta,Obj;
     
     for {(i,j) in CP}{
-    if xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j] < 0 and
-    (((vrx[i,j])**2) * a[i,j]) + ((vry[i,j]**2) * b[i,j]) - (vrx[i,j]*vry[i,j]*c[i,j]) < 0 then 
-    print i,j;
+    let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
+    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
     }
+    display test1, test2; 
 
-    include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
-
+}
 }
 
 let C := A;
+#    for {(i,j) in CP}{
+#    let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
+#    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+#}
 #display vrx, vry;
 
 
+#isplay test1, test2;
 
+for {(i,j) in CP}{
+    if test1[i,j] < 0 and
+    test2[i,j] < 0 then 
+    print i,j;
+}
 
-#for {(i,j) in CP}{
-#    if xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j] < 0 and
-#    ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j] < 0 then 
-#    print i,j;
-#}
+#include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 #
 #for {(i,j) in CP}{
 #    let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
 #    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j] - c[i,j];
 #}
-
-#display test1, test2;
