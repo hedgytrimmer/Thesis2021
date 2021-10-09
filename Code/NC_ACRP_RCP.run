@@ -8,29 +8,48 @@ problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin32
 option solver "C:\Users\user\Documents\THESIS\THESIS2021\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 
 #data C:\Users\jwsjt\Desktop\acrp-lib-master\Data\RCP_Instances\RCP_Instances\RCP_10_3.dat;		
-data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_10_3.dat;	
+data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_10_1.dat;	
 	
 let A := 1..n;
 let wd := 0.5;
 
 # pre-processing of variables bounds and coefficients
 #include C:\Users\jwsjt\Desktop\acrp-lib-master\Code\Preprocessing.run;
-include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
+include C:\Users\user\Documents\THESIS\THESIS2021\Code\Preprocessing.run;
 
+for {(i,j) in P}{
+    let a[i,j] := yr0[i,j]**2 - d**2;
+    let b[i,j] := xr0[i,j]**2 - d**2;
+    let c[i,j] := 2*xr0[i,j]*yr0[i,j];
+}
 
+for {(i,j) in P}{
+    let test1[i,j] := -1 * (xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j]);
+    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+}
+
+display test1, test2;
 
 problem NC_ACRP;
 solve NC_ACRP;
 
-display q,theta,Obj,P, v0;
+display q,theta,Obj;
 
-for {i in A}{
-let v0[i] := q[i]*v0[i];
-let cap[i] := theta[i]+cap[i];
+display test1, test2;
+
+for {(i,j) in P}{
+    if test1[i,j] > 0 and
+    test2[i,j] < 0 then 
+    print i,j;
 }
 
-display v0;
+#for {i in A}{
+#let v0[i] := q[i]*v0[i];
+#let cap[i] := theta[i]+cap[i];
+#}
 
-include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
-
-solve NC_ACRP;
+#display v0;
+#
+#include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
+#
+#solve NC_ACRP;

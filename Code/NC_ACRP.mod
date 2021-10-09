@@ -19,6 +19,8 @@ param x0{i in A} default -radius*cos((i-1)*2*PI/n + PI);
 param y0{i in A} default -radius*sin((i-1)*2*PI/n + PI);
 param xr0{i in A, j in A : i<j} := x0[i]-x0[j];
 param yr0{i in A, j in A : i<j} := y0[i]-y0[j];
+param test1{i in A, j in A : i<j};
+param test2{i in A, j in A : i<j};
 
 # control bounds
 param qmin := 0.94;
@@ -59,9 +61,9 @@ param Mbin342 {(i,j) in P : xr0[i,j] < 0 and yr0[i,j] < 0};
 
 # variables
 var q{i in A} >= qmin <= qmax;
-var theta{i in A} >= hmin <= hmax;
-var vrx{(i,j) in P} >= lvrx[i,j] <= uvrx[i,j];
-var vry{(i,j) in P} >= lvry[i,j] <= uvry[i,j];
+var theta{i in A} >= hmin <= hmax; 
+var vrx{(i,j) in P} >= lvrx[i,j] <= uvrx[i,j] default v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
+var vry{(i,j) in P} >= lvry[i,j] <= uvry[i,j] default v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
 var z{(i,j) in P} binary;
 
 # objective function
