@@ -7,7 +7,7 @@ problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin32
 #option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 option solver "C:\Users\user\Documents\THESIS\THESIS2021\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 
-data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_20_20.dat;		
+data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_20_10.dat;		
 	
 let A := 1..n;
 let C := A;
