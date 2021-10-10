@@ -1,1 +1,0 @@
--libpath:C:\home\svigerske\nbBuildDir\CoinAll\releases-1.6.2-default\lib libAlps.lib   -libpath:C:\home\svigerske\nbBuildDir\CoinAll\releases-1.6.2-default\lib libCoinUtils.lib mkl_intel_c.lib mkl_sequential.lib mkl_core.lib mkl_intel_c.lib mkl_sequential.lib mkl_core.lib   

@@ -5,7 +5,7 @@ model /home/johnT/Code/NC_ACRP_Cluster.mod
 
 problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin321,bin322,bin331,bin332,bin341,bin342;
 #option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
-option solver "/home/johnT/CoinAll-1.6.2-win32-cl15ifort11.1/bin/couenne.exe";
+option solver couenne;
 
 data /home/johnT/Code/RCP_30_10.dat;		
 	

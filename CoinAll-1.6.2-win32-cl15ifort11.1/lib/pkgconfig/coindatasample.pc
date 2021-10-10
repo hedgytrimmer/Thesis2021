@@ -1,9 +1,0 @@
-prefix=/home/svigerske/nbBuildDir/CoinAll/releases-1.6.2-default
-datadir=${prefix}/share/coin/Data/Sample
-
-Name: Sample
-Description: Sample models
-URL: https://projects.coin-or.org/svn/Data/Sample
-Version: 1.2.1
-Libs:
-Cflags:
