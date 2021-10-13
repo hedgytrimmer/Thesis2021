@@ -1,0 +1,127 @@
+reset;
+#model C:\Users\jwsjt\Desktop\acrp-lib-master\Code\NC_ACRP_Cluster.mod;
+model /home/johnT/Code/NC_ACRP_Cluster.mod;
+
+problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin321,bin322,bin331,bin332,bin341,bin342;
+#option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
+option solver couenne;
+
+for {k in 1..30}{
+		reset data;
+		data("/home/johnT/RCP_20/RCP_20_" & k & ".dat");
+
+        let A := 1..n;
+        let C := A;
+        let wd := 0.5;
+        let nc := 5;
+		    # pre-processing of variables bounds and coefficients
+            #include C:\Users\jwsjt\Desktop\acrp-lib-master\Code\PreprocessingCluster.run;
+            include /home/johnT/Code/PreprocessingTest.run;
+
+            for {(i,j) in CP}{
+                let a[i,j] := yr0[i,j]**2 - d**2;
+                let b[i,j] := xr0[i,j]**2 - d**2;
+                let c[i,j] := 2*xr0[i,j]*yr0[i,j];
+            }
+
+            for {(i,j) in CP}{
+                let test1[i,j] := -1 * (xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j]);
+                let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+            }
+
+            let totaltime := 0;
+
+            include /home/johnT/Code/Clustering.run;
+
+    repeat{
+
+                display CD, ic, iw >> ("/home/johnT/RCP_20_Testing/RCP_20_Testing_" & k & ".txt");
+
+
+                for {y in {1..nc}}{
+                let C := A;
+                if card(CD[y]) = 0 then continue;
+                else {
+                let C := CD[y];
+
+                problem NC_ACRP;
+                solve NC_ACRP;
+
+                for {(i,j) in CP}{
+                let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
+                let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+                }
+
+                display q,theta,Obj;
+                }
+                }
+                let C := A;
+
+                include /home/johnT/Code/Clustering.run;
+
+                let clustercon := 0;
+                let totaltime := totaltime + _solve_elapsed_time;
+
+                for {y in {1..nc}}{
+                let C := A;
+                if card(CD[y]) = 0 then let clustercon := clustercon + 1;
+                }
+                let numloop := numloop + 1;
+
+                for {y in {1..nc}}{
+                let C := A;
+                if card(CD[y]) > 0 then display k,y, CD[y], numloop >> ("/home/johnT/RCP_20_Testing/RCP_20_Testing_" & k & ".txt");
+                }
+
+                if numloop = 8 then {
+                print "Max Loops Reached", totaltime >> ("/home/johnT/RCP_20_Testing/RCP_20_Testing_" & k & ".txt");
+                break;
+                }
+
+                if clustercon = 5 then {
+                print ("RCP_20_" & k & " - All Clusters Solved") >> ("/home/johnT/RCP_20_Testing/RCP_20_Testing_" & k & ".txt"); 
+                print totaltime," seconds" >> ("/home/johnT/RCP_20_Testing/RCP_20_Testing_" & k & ".txt");
+                break;
+                }
+
+    };
+
+}
+
+print _total_solve_elapsed_time;
+
+reset;
+
+#model C:\Users\jwsjt\Desktop\acrp-lib-master\Code\NC_ACRP_Cluster.mod;
+model /home/johnT/Code/NC_ACRP_Cluster.mod;
+
+problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin321,bin322,bin331,bin332,bin341,bin342;
+#option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
+option solver couenne;
+	for {k in 1..30}{
+		reset data;
+		data("/home/johnT/RCP_20/RCP_20_" & k & ".dat");
+
+        let A := 1..n;
+        let C := A;
+        let wd := 0.5;
+        let nc := 5;
+		    # pre-processing of variables bounds and coefficients
+            #include C:\Users\jwsjt\Desktop\acrp-lib-master\Code\PreprocessingCluster.run;
+            include /home/johnT/Code/PreprocessingTest.run;
+
+            print ("RCP_20_" & k & " - Solved") >> ("/home/johnT/RCP_20_Testing/RCP_20_Testing_BM.txt"); 
+            print totaltime," seconds" >> ("/home/johnT/RCP_20_Testing/RCP_20_Testing_BM.txt");
+
+            problem NC_ACRP;
+            solve NC_ACRP;
+
+            display q,theta,Obj;
+
+
+
+}
+
+print _total_solve_elapsed_time;
+
+#Create Set of Clusters, iterate over set - if card(C1) >0 => solve else continue

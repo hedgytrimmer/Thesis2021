@@ -7,7 +7,7 @@ problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin32
 #option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
 option solver couenne;
 
-data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_20_15.dat;		
+data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_20_2.dat;		
 	
 let A := 1..n;
 let C := A;
@@ -84,7 +84,7 @@ for {y in {1..nc}}{
     #display vrx, vry;
 
     #display test1, test2;
-    display y,q,theta,Obj > C:\Users\user\Documents\THESIS\results.txt;
+    display q,theta,Obj;
     
     for {(i,j) in CP}{
     let test1[i,j] := -1 * (xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j]);
@@ -105,15 +105,7 @@ let C := A;
 
 display test1, test2 > C:\Users\user\Documents\THESIS\tests2.txt;
 
-for {(i,j) in CP}{
-    if trunc(test1[i,j], 4) > 0 and
-    trunc(test2[i,j], 4) < 0 then 
-    print i,j;
-    let clustercon[i] := 1;
-    let clustercon[j] := 1;
-}
-
-include C:\Users\user\Documents\THESIS\THESIS2021\Code\PostClustering.run;
+include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 
 #for {y in {1..nc}}{
 #    let C := A;
@@ -150,14 +142,6 @@ include C:\Users\user\Documents\THESIS\THESIS2021\Code\PostClustering.run;
 #
 #}
 #}
-
-for {(i,j) in CP}{
-    if trunc(test1[i,j], 4) > 0 and
-    trunc(test2[i,j], 4) < 0 then 
-    print i,j;
-    let clustercon[i] := 1;
-    let clustercon[j] := 1;
-}
 
 
 #for {(i,j) in CP}{

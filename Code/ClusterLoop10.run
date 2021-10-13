@@ -6,7 +6,7 @@ include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 
 repeat{
 
-            display CD, ic, iw >> ("C:\Users\user\Documents\THESIS\Outputs\RCP20Testing\RCP_20_Testing_" & k & ".txt");
+            display CD, ic, iw >> ("C:\Users\user\Documents\THESIS\Outputs\RCP20Testing\RCP_10_Testing_" & k & ".txt");
 
 
             for {y in {1..nc}}{
@@ -31,7 +31,7 @@ repeat{
             include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 
             let clustercon := 0;
-            let totaltime := totaltime + _solve_time;
+            let totaltime := totaltime + _solve_elapsed_time;
 
             for {y in {1..nc}}{
             let C := A;
@@ -41,17 +41,17 @@ repeat{
 
             for {y in {1..nc}}{
             let C := A;
-            if card(CD[y]) > 0 then display k,y, CD[y], numloop >> ("C:\Users\user\Documents\THESIS\Outputs\RCP20Testing\RCP_20_Testing_" & k & ".txt");
+            if card(CD[y]) > 0 then display k,y, CD[y], numloop >> ("C:\Users\user\Documents\THESIS\Outputs\RCP10Testing\RCP_10_Testing_" & k & ".txt");
             }
 
             if numloop = 8 then {
-            print "Max Loops Reached", totaltime >> ("C:\Users\user\Documents\THESIS\Outputs\RCP20Testing\RCP_20_Testing_" & k & ".txt");
+            print "Max Loops Reached", totaltime >> ("C:\Users\user\Documents\THESIS\Outputs\RCP10Testing\RCP_10_Testing_" & k & ".txt");
             break;
             }
 
             if clustercon = 5 then {
-            print ("RCP_20_" & k & " - All Clusters Solved") >> ("C:\Users\user\Documents\THESIS\Outputs\RCP20Testing\RCP_20_Testing_" & k & ".txt"); 
-            print totaltime," seconds" >> ("C:\Users\user\Documents\THESIS\Outputs\RCP20Testing\RCP_20_Testing_" & k & ".txt");
+            print ("RCP_10_" & k & " - All Clusters Solved") >> ("C:\Users\user\Documents\THESIS\Outputs\RCP10Testing\RCP_10_Testing_" & k & ".txt"); 
+            print totaltime," seconds" >> ("C:\Users\user\Documents\THESIS\Outputs\RCP10Testing\RCP_10_Testing_" & k & ".txt");
             break;
             }
             

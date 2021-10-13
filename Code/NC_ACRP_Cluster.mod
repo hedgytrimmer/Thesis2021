@@ -34,6 +34,7 @@ param iw {i in A} default 0;
 param numc default 5;
 param clustercon default 0;
 param numloop default 0;
+param totaltime default 0;
 #param vrx0{i in A, j in A : i<j} default v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
 #param vry0{i in A, j in A : i<j} default v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
 

@@ -6,7 +6,7 @@ problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin32
 
 option solver couenne;
 
-data /home/johnT/Code/RCP_30_10.dat;		
+data /home/johnT/Code/RCP_30_20.dat;		
 	
 let A := 1..n;
 let C := A;
@@ -51,6 +51,7 @@ repeat{
             }
 
             display q,theta,Obj;
+            display test1,test2 >> /home/johnT/Code/tests.txt;
             }
             }
             let C := A;
@@ -64,7 +65,7 @@ repeat{
 
             let numloop := numloop + 1;
 
-            if numloop = nc*2 or clustercon = nc then break;
+            if numloop = 8 or clustercon = 5 then break;
             
 };
 
