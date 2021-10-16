@@ -1,0 +1,85 @@
+for {(i,j) in CP}{
+    let a[i,j] := yr0[i,j]**2 - d**2;
+    let b[i,j] := xr0[i,j]**2 - d**2;
+    let c[i,j] := 2*xr0[i,j]*yr0[i,j];
+}
+
+let C := A;
+
+#for {(i,j) in CP}{
+#    let test1[i,j] := -1 * (xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j]);
+#    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+#    if test1[i,j] < 0 then print i,j, test1[i,j] > test1.txt;
+#    print i,j, test2[i,j] > test2.txt;
+#}
+
+let {i in A} ic[i] := 0;
+let {i in A} iw[i] := 0;
+
+for {i in {1..nc}}{
+    let CD[i] := {};
+}
+
+for {(i,j) in CP}{
+    if trunc(test1[i,j], 4) > 0 and
+    trunc(test2[i,j], 4) < 0 then 
+{
+for {x in 1..nc}{
+    #if ic[i] and ic[j] = 0 => add to any cluster
+    if card(CD[x]) = 0 and ic[i] = 0 and ic[j] = 0 then {
+        let CD[x] := {i,j};
+        let ic[i] := 1;
+        let iw[i] := x;
+        let ic[j] := 1;
+        let iw[j] := x;
+        print i,j, "Case 1.1";
+        continue;
+        }
+
+#if ic[i] = 1 and ic[j] = 0 => add j to cluster i
+
+    if card(CD[x]) > 0 and ic[i] = 1 and ic[j] = 0 then {
+        let CD[iw[i]] := CD[iw[i]] union {j};
+        let ic[j] := 1;
+        let iw[j] := iw[i];
+        print i,j, "Case 1.2";
+        continue;
+    }
+
+#if ic[i] = 0 and ic[j] = 1 => add i to cluster j
+
+    if card(CD[x]) > 0 and ic[i] = 0 and ic[j] = 1 then {
+        let CD[iw[j]] := CD[iw[j]] union {i};
+        let ic[i] := 1;
+        let iw[i] := iw[j];
+        print i,j, "Case 1.3";
+        continue;
+    }
+#if ic[i] = 1 and ic[j] = 1 => check if in same cluster and assign
+    if card(CD[x]) > 0 and ic[i] = 1 and ic[j] = 1 then {
+        if iw[i] = iw[j] then continue;
+        if iw[i] != iw[j] then {
+            let CD[iw[i]] := CD[iw[i]] union {j};
+            let CD[iw[j]] := CD[iw[j]] diff {j};
+            if card(CD[iw[j]]) = 1 then {
+                let CD[iw[i]] := CD[iw[i]] union CD[iw[j]];
+                for {m in {CD[iw[j]]}}{let iw[m] := iw[i]};
+                let CD[iw[j]] := {};
+                }
+            let iw[j] := iw[i];
+            print i,j, "Case 1.4";
+        }
+    }
+    #display CD;
+    }
+
+}
+}
+display CD, ic, iw;
+#display test1, test2
+
+
+
+
+
+
