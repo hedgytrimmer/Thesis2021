@@ -5,7 +5,8 @@ model C:\Users\user\Documents\THESIS\THESIS2021\Code\NC_ACRP.mod
 
 problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin321,bin322,bin331,bin332,bin341,bin342;
 #option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
-option solver "C:\Users\user\Documents\THESIS\THESIS2021\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
+option solver "C:\Users\user\Documents\THESIS\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
+#option solver couenne;
 
 #data C:\Users\jwsjt\Desktop\acrp-lib-master\Data\RCP_Instances\RCP_Instances\RCP_10_3.dat;		
 data C:\Users\user\Documents\THESIS\THESIS2021\Data\RCP_Instances\RCP_Instances\RCP_10_1.dat;	

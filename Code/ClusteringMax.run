@@ -6,13 +6,25 @@ for {(i,j) in CP}{
 
 let C := A;
 
+#for {(i,j) in CP}{
+#    let test1[i,j] := -1 * (xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j]);
+#    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+#    if test1[i,j] < 0 then print i,j, test1[i,j] > test1.txt;
+#    print i,j, test2[i,j] > test2.txt;
+#}
+
+let {i in A} ic[i] := 0;
+let {i in A} iw[i] := 0;
+
+for {i in {1..nc}}{
+    let CD[i] := {};
+}
+
 for {(i,j) in CP}{
     if trunc(test1[i,j], 4) > 0 and
     trunc(test2[i,j], 4) < 0 then 
 {
-display numloop,i,j,test1[i,j],test2[i,j] >> C:\Users\user\Documents\THESIS\Outputs\ClusterLoop\tests2.txt;
 for {x in 1..nc}{
-
     #if ic[i] and ic[j] = 0 => add to any cluster
     if card(CD[x]) = 0 and ic[i] = 0 and ic[j] = 0 then {
         let CD[x] := {i,j};
@@ -20,20 +32,9 @@ for {x in 1..nc}{
         let iw[i] := x;
         let ic[j] := 1;
         let iw[j] := x;
-        print i,j, "Case 2.1a";
+        print i,j, "Case 1.1";
         continue;
         }
-
-    if card(CD[x]) > 0 and ic[i] = 0 and ic[j] = 0 then {
-        let CD[x] := CD[x] union {i,j};
-        let ic[i] := 1;
-        let iw[i] := x;
-        let ic[j] := 1;
-        let iw[j] := x;
-        print i,j, "Case 2.1b";
-        continue;
-        }
-
 
 #if ic[i] = 1 and ic[j] = 0 => add j to cluster i
 
@@ -41,7 +42,7 @@ for {x in 1..nc}{
         let CD[iw[i]] := CD[iw[i]] union {j};
         let ic[j] := 1;
         let iw[j] := iw[i];
-        print i,j, "Case 2.2";
+        print i,j, "Case 1.2";
         continue;
     }
 
@@ -51,10 +52,10 @@ for {x in 1..nc}{
         let CD[iw[j]] := CD[iw[j]] union {i};
         let ic[i] := 1;
         let iw[i] := iw[j];
-        print i,j, "Case 2.3";
+        print i,j, "Case 1.3";
         continue;
     }
-#if ic[i] = 1 and ic[j] = 1 => check if in same cluster and move to same cluster
+#if ic[i] = 1 and ic[j] = 1 => check if in same cluster and assign
     if card(CD[x]) > 0 and ic[i] = 1 and ic[j] = 1 then {
         if iw[i] = iw[j] then continue;
         if iw[i] != iw[j] then {
@@ -66,7 +67,7 @@ for {x in 1..nc}{
                 let CD[iw[j]] := {};
                 }
             let iw[j] := iw[i];
-            print i,j, "Case 2.4";
+            print i,j, "Case 1.4";
         }
     }
     #display CD;

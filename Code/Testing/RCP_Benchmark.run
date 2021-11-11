@@ -1,0 +1,8 @@
+problem NC_ACRP;
+solve NC_ACRP;
+
+display q,theta,Obj;
+
+print ("RCP_" & nb & "_" & k) >> ("/home/johnT/Testing/RCP_" & nb & "_BMResults_.txt");
+print "Time: ",_solve_elapsed_time >> ("/home/johnT/Testing/RCP_" & nb & "_BMResults_.txt");
+print "Objective: ", Obj >> ("/home/johnT/Testing/RCP_" & nb & "_BMResults_.txt");

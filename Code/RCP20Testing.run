@@ -34,8 +34,10 @@ option solver couenne;
             #include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 
             let totaltime := 0;
-
+            
+            #include C:\Users\user\Documents\THESIS\Thesis2021\Code\ClusterLoop_PostCluster.run;
             include C:\Users\user\Documents\THESIS\Thesis2021\Code\ClusterLoop.run;
+            #include C:\Users\user\Documents\THESIS\Thesis2021\Code\RCP_Benchmark.run;
 
 
 

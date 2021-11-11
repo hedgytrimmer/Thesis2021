@@ -11,14 +11,15 @@ for {nb in {10,20,30,40}}{
     remove ("C:\Users\user\Documents\THESIS\Outputs\ClusterAnalysis\RCP_" & nb & "_Clusters.txt");
 }
 for{nb in {10,20,30,40}}{
-	for {k in 1..30} {
+	for {k in {1..30}} {
 		reset data;
 		data("C:\Users\user\Documents\THESIS\Thesis2021\Data\RCP_Instances\RCP_Instances\RCP_"& nb & "_" & k & ".dat");
 
         let A := 1..n;
         let C := A;
         let wd := 0.5;
-        let nc := 5;
+        let nc := 10;
+        let numc := 5;
 		    # pre-processing of variables bounds and coefficients
             #include C:\Users\jwsjt\Desktop\acrp-lib-master\Code\PreprocessingCluster.run;
             include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
@@ -37,12 +38,16 @@ for{nb in {10,20,30,40}}{
             }
 
             option display_1col 1000;
-            include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
+            #include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
+            include C:\Users\user\Documents\THESIS\THESIS2021\Code\ClusterLimits\ClusteringLimit.run;
 
         
             display k, CD >> ("C:\Users\user\Documents\THESIS\Outputs\ClusterAnalysis\RCP_" & nb & "_Clusters.txt");
             display k, CD >> ("C:\Users\user\Documents\THESIS\Outputs\ClusterAnalysis\RCP_" & nb & "_Clusters.txt");
-            for {y in 1..nc}{display k,CD,y, card(CD[y]) >> ("C:\Users\user\Documents\THESIS\Outputs\ClusterAnalysis\RCP_" & nb & "_ClusterSize.txt")}
+            for {y in 1..nc}{display k,y, card(CD[y]) >> ("C:\Users\user\Documents\THESIS\Outputs\ClusterAnalysis\RCP_" & nb & "_ClusterSize.txt")}
+            for {y in 1..nc}{display k,y, card(CD[y]) >> ("C:\Users\user\Documents\THESIS\Outputs\ClusterAnalysis\RCP_" & nb & "_ClusterSize2.txt")}
+                        for {y in 1..nc}{
+                            if card(CD[y]) > numc then display k,y, card(CD[y]) >> ("C:\Users\user\Documents\THESIS\Outputs\ClusterAnalysis\RCP_" & nb & "_ClusterSize3.txt")}
 	}
 
 }

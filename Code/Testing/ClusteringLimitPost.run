@@ -1,0 +1,95 @@
+for {(i,j) in CP}{
+    let a[i,j] := yr0[i,j]**2 - d**2;
+    let b[i,j] := xr0[i,j]**2 - d**2;
+    let c[i,j] := 2*xr0[i,j]*yr0[i,j];
+}
+
+let C := A;
+
+for {(i,j) in CP}{
+    if trunc(test1[i,j], 4) > 0 and
+    trunc(test2[i,j], 4) < 0 then 
+{
+for {x in 1..nc}{
+
+    #if ic[i] and ic[j] = 0 => add to any cluster
+    if card(CD[x]) = 0 and ic[i] = 0 and ic[j] = 0 then {
+        let CD[x] := {i,j};
+        let ic[i] := 1;
+        let iw[i] := x;
+        let ic[j] := 1;
+        let iw[j] := x;
+        let incluster[x] := incluster[x] + 2;
+        print i,j, "Case 2.1a";
+        continue;
+        }
+
+    if card(CD[x]) > 0 and ic[i] = 0 and ic[j] = 0 then {
+        let CD[x] := CD[x] union {i,j};
+        let ic[i] := 1;
+        let iw[i] := x;
+        let ic[j] := 1;
+        let iw[j] := x;
+        let incluster[x] := incluster[x] + 2;
+        print i,j, "Case 2.1b";
+        continue;
+        }
+
+
+#if ic[i] = 1 and ic[j] = 0 => add j to cluster i
+
+    if card(CD[x]) > 0 and ic[i] = 1 and ic[j] = 0 and incluster[iw[i]] < numc then {
+        let CD[iw[i]] := CD[iw[i]] union {j};
+        let ic[j] := 1;
+        let iw[j] := iw[i];
+        let incluster[iw[i]] := incluster[iw[i]] + 1;
+        print i,j, "Case 2.2";
+        continue;
+    }
+
+#if ic[i] = 0 and ic[j] = 1 => add i to cluster j
+
+    if card(CD[x]) > 0 and ic[i] = 0 and ic[j] = 1 and incluster[iw[j]] < numc then {
+        let CD[iw[j]] := CD[iw[j]] union {i};
+        let ic[i] := 1;
+        let iw[i] := iw[j];
+        let incluster[iw[j]] := incluster[iw[j]] + 1;
+        print i,j, "Case 2.3";
+        continue;
+    }
+#if ic[i] = 1 and ic[j] = 1 => check if in same cluster and move to same cluster
+    if card(CD[x]) > 0 and ic[i] = 1 and ic[j] = 1 and incluster[iw[i]] < numc - 1 then {
+        if iw[i] = iw[j] then continue;
+        if iw[i] != iw[j] then {
+            let CD[iw[i]] := CD[iw[i]] union {j};
+            let incluster[iw[i]] := incluster[iw[i]] + 1;   
+            let CD[iw[j]] := CD[iw[j]] diff {j};
+            let incluster[iw[j]] := incluster[iw[j]] - 1;
+            if card(CD[iw[j]]) = 1 then {
+                let CD[iw[i]] := CD[iw[i]] union CD[iw[j]];
+                for {m in {CD[iw[j]]}}{let iw[m] := iw[i]};
+                let CD[iw[j]] := {};
+                let incluster[iw[j]] := incluster[iw[j]] - 1;
+                let incluster[iw[i]] := incluster[iw[i]] + 1;  
+                }
+            let iw[j] := iw[i];
+            print i,j, "Case 2.4";
+        }
+    }
+    #display CD;
+    }
+
+}
+}
+display CD, ic, iw;
+
+for {x in {1..nc}}{
+    let incluster[x] := 0;
+}
+#display test1, test2
+
+
+
+
+
+
