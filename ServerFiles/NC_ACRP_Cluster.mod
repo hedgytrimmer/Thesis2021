@@ -32,13 +32,8 @@ param nc default 5;
 param ic {i in A} default 0;
 param iw {i in A} default 0;
 param numc default 5;
-param clustercon default 0;
+param clustercon {i in A} default 0;
 param numloop default 0;
-param totaltime;
-param tempsize default 50;
-param smallest default 0;
-param totalobjective default 0;
-
 #param vrx0{i in A, j in A : i<j} default v0[i]*cos(theta0[i]) - v0[j]*cos(theta0[j]);
 #param vry0{i in A, j in A : i<j} default v0[i]*sin(theta0[i]) - v0[j]*sin(theta0[j]);
 
@@ -47,7 +42,7 @@ param test2{i in A, j in A : i<j};
 
 set CD {1..nc} within C default {};
 
-param incluster {1..nc} default 0;
+
 # control bounds
 param qmin := 0.94;
 param qmax := 1.03;

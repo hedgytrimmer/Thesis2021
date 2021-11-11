@@ -1,0 +1,76 @@
+reset;
+
+model /home/johnT/Code/NC_ACRP_Cluster.mod
+
+problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin321,bin322,bin331,bin332,bin341,bin342;
+
+option solver couenne;
+
+data /home/johnT/Code/RCP_30_20.dat;		
+	
+let A := 1..n;
+let C := A;
+let wd := 0.5;
+let nc := 5;
+
+# pre-processing of variables bounds and coefficients
+include /home/johnT/Code/PreprocessingTest.run;
+
+for {(i,j) in CP}{
+    let a[i,j] := yr0[i,j]**2 - d**2;
+    let b[i,j] := xr0[i,j]**2 - d**2;
+    let c[i,j] := 2*xr0[i,j]*yr0[i,j];
+}
+
+for {(i,j) in CP}{
+    let test1[i,j] := -1 * (xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j]);
+    let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+}
+
+include /home/johnT/Code/Clustering.run;
+
+#Create Set of Clusters, iterate over set - if card(C1) >0 => solve else continue
+
+repeat{
+
+            #display CD, ic, iw >> C:\Users\user\Documents\THESIS\Outputs\ClusterLoop\sets.txt;
+
+
+            for {y in {1..nc}}{
+            let C := A;
+            if card(CD[y]) = 0 then continue;
+            else {
+            let C := CD[y];
+            
+            problem NC_ACRP;
+            solve NC_ACRP;
+
+            for {(i,j) in CP}{
+            let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
+            let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+            }
+
+            display q,theta,Obj;
+            display test1,test2 >> /home/johnT/Code/tests.txt;
+            }
+            }
+            let C := A;
+
+            include /home/johnT/Code/Clustering.run;
+
+            for {y in {1..nc}}{
+            let C := A;
+            if card(CD[y]) = 0 then let clustercon := clustercon + 1;
+            }
+
+            let numloop := numloop + 1;
+
+            if numloop = 8 or clustercon = 5 then break;
+            
+};
+
+
+
+
+#display test1, test2;
+

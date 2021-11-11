@@ -1,11 +1,10 @@
 reset;
 
-#model C:\Users\jwsjt\Desktop\acrp-lib-master\Code\NC_ACRP_Cluster.mod;
 model /home/johnT/Code/NC_ACRP_Cluster.mod
 
 problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin321,bin322,bin331,bin332,bin341,bin342;
-#option solver "C:\Users\jwsjt\Desktop\acrp-lib-master\CoinAll-1.6.2-win32-cl15ifort11.1\bin\couenne.exe";
-option solver "/home/johnT/CoinAll-1.6.2-win32-cl15ifort11.1/bin/couenne.exe";
+
+option solver couenne;
 
 data /home/johnT/Code/RCP_30_10.dat;		
 	
@@ -15,7 +14,6 @@ let wd := 0.5;
 let nc := 5;
 
 # pre-processing of variables bounds and coefficients
-#include C:\Users\jwsjt\Desktop\acrp-lib-master\Code\PreprocessingCluster.run;
 include /home/johnT/Code/PreprocessingTest.run;
 
 
@@ -67,7 +65,6 @@ for {y in {1..nc}}{
     #       let vrx[i,j] := 0;
     #       let vry[i,j] := 0;
     #   }
-
     let C := CD[y];
 
     #include C:\Users\user\Documents\THESIS\THESIS2021\Code\PreprocessingTest.run;
@@ -109,7 +106,7 @@ for {(i,j) in CP}{
     print i,j;
 }
 
-display test1, test2;
+#display test1, test2;
 
 #include C:\Users\user\Documents\THESIS\THESIS2021\Code\Clustering.run;
 #

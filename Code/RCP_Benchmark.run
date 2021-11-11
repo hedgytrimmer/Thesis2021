@@ -1,0 +1,6 @@
+problem NC_ACRP;
+solve NC_ACRP;
+
+display q,theta,Obj;
+
+print k, _solve_elapsed_time >> ("C:\Users\user\Documents\THESIS\Outputs\Initial Testing - 19.10.2021\Benchmark\RCP_Testing_" & k & ".txt");

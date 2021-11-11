@@ -21,6 +21,7 @@ param xr0{i in A, j in A : i<j} := x0[i]-x0[j];
 param yr0{i in A, j in A : i<j} := y0[i]-y0[j];
 param test1{i in A, j in A : i<j};
 param test2{i in A, j in A : i<j};
+param totaltime default 0;
 
 # control bounds
 param qmin := 0.94;

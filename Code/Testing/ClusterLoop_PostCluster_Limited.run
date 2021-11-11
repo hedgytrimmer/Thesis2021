@@ -1,0 +1,71 @@
+
+include /home/johnT/Testing/Code/ClusteringLimit.run;
+
+#Create Set of Clusters, iterate over set - if card(C1) >0 => solve else continue
+
+
+repeat{
+            for {y in {1..nc}}{
+            if card(CD[y]) = n then {
+            print ("RCP_" & nb & "_" & k) >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterDebug_.txt");
+            print "Cluster is all Aircraft";
+            }
+            }
+
+
+            for {y in {1..nc}}{
+            let C := A;
+            if card(CD[y]) = 0 then continue;
+            else {
+            let C := CD[y];
+            
+            problem NC_ACRP;
+            solve NC_ACRP;
+
+            let totaltime := totaltime + _solve_elapsed_time;
+
+            for {(i,j) in CP}{
+            let test1[i,j] := xr0[i,j] * vrx[i,j] + yr0[i,j] * vry[i,j];
+            let test2[i,j] := ((vrx[i,j])**2) * a[i,j] + (vry[i,j]**2) * b[i,j] - vrx[i,j]*vry[i,j]*c[i,j];
+            }
+
+            display q,theta,Obj;
+
+            for {i in C}{
+                let totalobjective := totalobjective + Obj;
+            }           
+
+            }
+            }
+            let C := A;
+
+            include /home/johnT/Testing/Code/ClusteringLimitPost.run;
+
+            let clustercon := 0;
+
+            for {(i,j) in CP}{
+                if trunc(test1[i,j], 4) > 0 and
+                trunc(test2[i,j], 4) < 0 then let clustercon := clustercon + 1;
+            }
+            let numloop := numloop + 1;
+
+            if numloop = 8 then {
+            print ("RCP_" & nb & "_" & k) >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
+            print "Max Loops Reached: ", totaltime, ("RCP_" & nb & "_" & k) >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterDebug_.txt");
+            print "Time: ", totaltime >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
+            print "Objective: ", totalobjective >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
+            let totalobjective := 0;
+            let totaltime := 0;
+            break;
+            }
+
+            if clustercon = 0 then {
+            print ("RCP_" & nb & "_" & k) >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
+            print "Time: ", totaltime >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
+            print "Objective: ", totalobjective >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
+            let totalobjective := 0;
+            let totaltime := 0;
+            break;
+            }
+            
+};
