@@ -68,6 +68,8 @@ repeat{
             break;
             }
             
+            let totalobjective := 0;
+            
 };
 
 

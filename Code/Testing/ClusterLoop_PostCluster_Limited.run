@@ -50,7 +50,7 @@ repeat{
             let numloop := numloop + 1;
 
             if numloop = 8 then {
-            print ("RCP_" & nb & "_" & k) >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
+            print ("RCP_" & nb & "_" & k & "_" & l) >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
             print "Max Loops Reached: ", totaltime, ("RCP_" & nb & "_" & k) >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterDebug_.txt");
             print "Time: ", totaltime >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
             print "Objective: ", totalobjective >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
@@ -60,12 +60,14 @@ repeat{
             }
 
             if clustercon = 0 then {
-            print ("RCP_" & nb & "_" & k) >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
+            print ("RCP_" & nb & "_" & k & "_" & l) >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
             print "Time: ", totaltime >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
             print "Objective: ", totalobjective >> ("/home/johnT/Testing/RCP_" & nb & "_PostLimitClusterResults_.txt");
             let totalobjective := 0;
             let totaltime := 0;
             break;
             }
+
+            let totalobjective := 0;
             
 };

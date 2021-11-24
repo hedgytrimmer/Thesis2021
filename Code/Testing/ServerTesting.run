@@ -7,16 +7,18 @@ problem NC_ACRP: Obj,q,theta,vrx,vry,z,bin11,bin12,cvrx,cvry,bin311,bin312,bin32
 option solver couenne;
 
 #Limited Cluster
-for{nb in {10,20,30,40}}{
-    for {k in 1..100}{
+for{nb in {40}}{
+    for {l in {3}}{
+        for {k in 1..100}{
+
     		reset data;
     		data("/home/johnT/Testing/Data/RCP_"& nb & "_" & k & ".dat")
 
             let A := 1..n;
             let C := A;
             let wd := 0.5;
-            let nc := 10;
-            let numc := 10;
+            let nc := 15;
+            let numc := l;
             
     		    # pre-processing of variables bounds and coefficients
                 include /home/johnT/Testing/Code/PreprocessingTest.run;
@@ -40,10 +42,11 @@ for{nb in {10,20,30,40}}{
 
     }
 }
-
+}
 #Limited Post Cluster
-for{nb in {10,20,30,40}}{
-    for {k in 1..100}{
+for{nb in {20}}{
+    for {l in {8}}
+    for {k in 11..100}{
     		reset data;
     		data("/home/johnT/Testing/Data/RCP_"& nb & "_" & k & ".dat")
 
@@ -51,7 +54,7 @@ for{nb in {10,20,30,40}}{
             let C := A;
             let wd := 0.5;
             let nc := 10;
-            let numc := 10;
+            let numc := l;
 
     		    # pre-processing of variables bounds and coefficients
                 include /home/johnT/Testing/Code/PreprocessingTest.run;
@@ -75,7 +78,7 @@ for{nb in {10,20,30,40}}{
 
     }
 }
-Cluster
+#Cluster
 for{nb in {10,20}}{
     for {k in 1..100}{
     		reset data;
@@ -108,9 +111,8 @@ for{nb in {10,20}}{
 
     }
 }
-
 #Post Cluster
-for{nb in {10,20}}{
+for{nb in {10, 20}}{
     for {k in 1..100}{
     		reset data;
     		data("/home/johnT/Testing/Data/RCP_"& nb & "_" & k & ".dat")
